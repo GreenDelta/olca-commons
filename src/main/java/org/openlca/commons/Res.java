@@ -1,6 +1,7 @@
 package org.openlca.commons;
 
 import java.util.Objects;
+import java.util.function.Supplier;
 
 /// A return type that can contain the return value, an error, or could be
 /// empty. This is useful when you do not want to throw exceptions but return
@@ -74,6 +75,29 @@ public sealed interface Res<T> {
 		return switch (this) {
 			case Err(String inner) -> error(message + "\n  -> " + inner);
 			default -> castError().wrapError(message);
+		};
+	}
+
+	/// Returns the value if present, otherwise it calls the given function and
+	/// returns its result. It is fine to pass `null` as the function argument,
+	/// so that `null` is also returned as the default value.
+	default T orElse(Supplier<T> fn) {
+		if (this instanceof Ok(T value))
+			return value;
+		return fn != null
+			? fn.get()
+			: null;
+	}
+
+	/// Returns the value of the result or throws an exception if the result is
+	/// an error or empty.
+	default T orElseThrow() {
+		return switch (this) {
+			case Ok(T value) -> value;
+			case Err(String error) -> throw new IllegalStateException(
+				"Result is an error: " + error);
+			case Empty() -> throw new IllegalStateException(
+				"Result is empty");
 		};
 	}
 
