@@ -21,4 +21,8 @@ public class Strings {
 		return s == null || s.isBlank();
 	}
 
+	public boolean isNotBlank(String s) {
+		return s != null && !s.isBlank();
+	}
+
 }
