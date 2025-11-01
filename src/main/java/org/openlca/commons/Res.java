@@ -42,8 +42,8 @@ public sealed interface Res<T> {
 		return new Ok<>(value);
 	}
 
-	/// Creates an ok result, without a value. This is useful for methods, that
-	/// return nothing (`void``) or an error.
+	/// Creates an `ok` result, without a value. This is useful for methods, that
+	/// return nothing (`void`) or an error.
 	static Res<Void> ok() {
 		return Empty.instance;
 	}
