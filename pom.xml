@@ -11,7 +11,56 @@
 
 	<groupId>org.openlca</groupId>
 	<artifactId>olca-commons</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>0.0.1</version>
+
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>Common utilities and interfaces for openLCA projects.</description>
+	<url>https://github.com/msrocka/olca-commons</url>
+
+	<licenses>
+		<license>
+			<name>Mozilla Public License, Version 2.0</name>
+			<url>https://www.mozilla.org/en-US/MPL/2.0/</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>msrocka</id>
+			<name>Michael Srocka</name>
+			<email>srocka@greendelta.com</email>
+			<organization>GreenDelta</organization>
+			<organizationUrl>http://www.greendelta.com</organizationUrl>
+			<roles>
+				<role>owner</role>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>sgreve</id>
+			<name>Sebastian Greve</name>
+			<email>greve@greendelta.com</email>
+			<organization>GreenDelta</organization>
+			<organizationUrl>http://www.greendelta.com</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/msrocka/olca-commons.git</connection>
+		<developerConnection>scm:git:git://github.com/msrocka/olca-commons.git</developerConnection>
+		<url>https://github.com/GreenDelta/olca-commons</url>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/GreenDelta/olca-commons/issues</url>
+	</issueManagement>
 
 	<dependencies>
 		<dependency>
@@ -21,4 +70,67 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>deployment</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>3.2.8</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.3.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>3.12.0</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+          	<groupId>org.sonatype.central</groupId>
+          	<artifactId>central-publishing-maven-plugin</artifactId>
+          	<version>0.9.0</version>
+          	<extensions>true</extensions>
+          	<configuration>
+            	<publishingServerId>central</publishingServerId>
+          	</configuration>
+        	</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
