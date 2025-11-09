@@ -15,7 +15,7 @@
 
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>Common utilities and interfaces for openLCA projects.</description>
-	<url>https://github.com/msrocka/olca-commons</url>
+	<url>https://github.com/GreenDelta/olca-commons</url>
 
 	<licenses>
 		<license>
@@ -52,8 +52,8 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://github.com/msrocka/olca-commons.git</connection>
-		<developerConnection>scm:git:git://github.com/msrocka/olca-commons.git</developerConnection>
+		<connection>scm:git:git://github.com/GreenDelta/olca-commons.git</connection>
+		<developerConnection>scm:git:git://github.com/GreenDelta/olca-commons.git</developerConnection>
 		<url>https://github.com/GreenDelta/olca-commons</url>
 	</scm>
 
