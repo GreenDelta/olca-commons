@@ -2,6 +2,7 @@ package org.openlca.commons;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /// A return type that can contain the return value, an error, or could be
@@ -101,6 +102,17 @@ public sealed interface Res<T> {
 					.orElseGet(() -> new IllegalStateException(msg));
 			}
 			case Empty() -> null;
+		};
+	}
+
+	/// Applies the given function to the value if this result is `Ok`, returning
+	/// a new result. If this result is an error or empty, it returns the error
+	/// or empty result unchanged.
+	default <R> Res<R> then(Function<T, Res<R>> fn) {
+		return switch (this) {
+			case Ok(T value) -> fn.apply(value);
+			case Err<T> err -> err.castError();
+			case Empty ignored -> Empty.instance.castError();
 		};
 	}
 
