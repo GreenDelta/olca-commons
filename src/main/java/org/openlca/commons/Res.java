@@ -37,8 +37,8 @@ public sealed interface Res<T> {
 	/// Creates a new result of the given value. Note that the value must not be
 	/// `null`, if you want to wrap a nullable object use an Optional, like:
 	/// ```
-	/// Res.ok(Optional.of(42));
-	///```
+  /// Res.ok(Optional.of(42));
+  /// ```
 	static <T> Res<T> ok(T value) {
 		return new Ok<>(value);
 	}
@@ -167,9 +167,22 @@ public sealed interface Res<T> {
 
 		@Override
 		public String error() {
-			return cause
-				.map(err -> message + "\n  -> " + err.getMessage())
-				.orElse(message);
+			var details = cause.map(this::errorOf).orElse(null);
+			return details != null
+				? message + "\n  -> " + details
+				: message;
+		}
+
+		private String errorOf(Throwable err) {
+			if (err == null)
+				return null;
+			var message = err.getMessage();
+			if (Strings.isNotBlank(message))
+				return message;
+			var cls = err.getClass().getSimpleName();
+			return Strings.isNotBlank(cls)
+				? cls
+				: err.getClass().getName();
 		}
 
 		@Override

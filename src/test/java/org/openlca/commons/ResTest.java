@@ -1,8 +1,8 @@
 package org.openlca.commons;
 
-import org.junit.Test;
-
 import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 public class ResTest {
 
@@ -45,4 +45,13 @@ public class ResTest {
 		assertEquals("Error: Double error\n  -> Integer error", resD.toString());
 	}
 
+	@Test
+	public void testErrorMessages() {
+		assertEquals("Some error\n  -> Invalid value",
+			Res.error("Some error",
+				new IllegalArgumentException("Invalid value")).error());
+		assertEquals("Some error\n  -> IllegalArgumentException",
+			Res.error("Some error",
+				new IllegalArgumentException((String) null)).error());
+	}
 }
