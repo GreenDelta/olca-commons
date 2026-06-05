@@ -1,11 +1,6 @@
 package org.openlca.commons;
 
-/// A utility class for string comparison in natural sort order. A natural sort
-/// ordering is a lexical ordering where embedded numerals (digit sequences) are
-/// treated as a single unit and ordered by numerical value.
-///
-/// See also [natural sort order on Wikipedia](https://en.wikipedia.org/wiki/Natural_sort_order)
-public class NaturalSortOrder {
+class NaturalSortOrder {
 
 	private static final int ZERO = 0x30;
 

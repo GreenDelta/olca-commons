@@ -90,12 +90,19 @@ public class Strings {
 		return a.compareToIgnoreCase(b);
 	}
 
+	/// Compares the given strings in natural sort order. A natural sort ordering
+	/// is a lexical ordering where embedded numerals (digit sequences) are
+	/// treated as a single unit and ordered by numerical value.
+	///
+	/// See also [natural sort order on Wikipedia](https://en.wikipedia.org/wiki/Natural_sort_order)
+	public static int compareNatural(String a, String b) {
+		return NaturalSortOrder.compare(a, b);
+	}
+
 	/// Compares two strings for equality, ignoring case differences. Returns
 	/// `true` if both strings are equal (ignoring case), or if both are `null`.
 	public static boolean equalsIgnoreCase(String a, String b) {
-		return a == b
-			? true
-			: (a != null && a.equalsIgnoreCase(b));
+		return a == b || (a != null && a.equalsIgnoreCase(b));
 	}
 
 	/// Returns an empty string if the given string is `null`, otherwise returns
