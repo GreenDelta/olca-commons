@@ -37,8 +37,8 @@ public sealed interface Res<T> {
 	/// Creates a new result of the given value. Note that the value must not be
 	/// `null`, if you want to wrap a nullable object use an Optional, like:
 	/// ```
-  /// Res.ok(Optional.of(42));
-  /// ```
+	/// Res.ok(Optional.of(42));
+	/// ```
 	static <T> Res<T> ok(T value) {
 		return new Ok<>(value);
 	}
@@ -91,7 +91,13 @@ public sealed interface Res<T> {
 	}
 
 	/// Returns the value of the result or throws an exception if the result is
-	/// an error or empty.
+	/// an error. If the result is empty, `null` is returned. This is useful to
+	/// propagate errors of methods that return nothing (`Res<Void>`), like:
+	/// ```
+	/// doSomething().orElseThrow();
+	/// ```
+	/// Note that this is different to [#value()], which also throws an
+	/// exception if the result is empty.
 	default T orElseThrow() {
 		return switch (this) {
 			case Ok(T value) -> value;
@@ -129,7 +135,7 @@ public sealed interface Res<T> {
 	record Ok<T>(T value) implements Res<T> {
 
 		public Ok {
-			Objects.requireNonNull(value);
+			Objects.requireNonNull(value, "value must not be null");
 		}
 
 		@Override

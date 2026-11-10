@@ -11,11 +11,17 @@ package org.openlca.commons;
 /// (e.g. `1 < 01`). All other characters are compared case insensitively by
 /// their (lower case) character code. A number token is compared with another
 /// character via its first digit; as digits have consecutive character codes,
-/// this gives the same result for all numbers. Blank strings (`null`, empty, or
-/// only whitespace) are equal and come before all other strings.
+/// this gives the same result for all numbers. `null` comes before all other
+/// strings, followed by blank strings (empty or only whitespace), which are
+/// equal to each other. This is consistent with
+/// [Strings#compareIgnoreCase(String, String)], where `null` also comes first.
 class NaturalSortOrder {
 
 	public static int compare(String a, String b) {
+		if (a == null && b == null) return 0;
+		if (a == null) return -1;
+		if (b == null) return 1;
+
 		boolean blankA = Strings.isBlank(a);
 		boolean blankB = Strings.isBlank(b);
 		if (blankA && blankB) return 0;

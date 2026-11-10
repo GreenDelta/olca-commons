@@ -59,7 +59,18 @@ public class NaturalSortOrderTest {
 		assertTrue(compare("", "a") < 0);
 		assertTrue(compare("   ", "1") < 0);
 		assertEquals(0, compare("", "   "));
-		assertEquals(0, compare(null, ""));
+	}
+
+	/// `null` comes before all other strings, also before blank strings, like
+	/// in [Strings#compareIgnoreCase(String, String)].
+	@Test
+	public void testNull() {
+		assertEquals(0, compare(null, null));
+		assertTrue(compare(null, "") < 0);
+		assertTrue(compare("", null) > 0);
+		assertTrue(compare(null, "   ") < 0);
+		assertTrue(compare(null, "a") < 0);
+		assertTrue(compare("1", null) > 0);
 	}
 
 	/// A digit sequence must always be compared as a whole number, also when
@@ -108,9 +119,9 @@ public class NaturalSortOrderTest {
 				"X123456789012345678901234567890"));
 	}
 
-	/// Checks the comparator contract exhaustively for all strings up to a
-	/// length of 3 over an alphabet that contains letters in both cases,
-	/// digits, and separators:
+	/// Checks the comparator contract exhaustively for `null` and all strings
+	/// up to a length of 3 over an alphabet that contains letters in both
+	/// cases, digits, and separators:
 	///
 	/// - `sgn(compare(a, b)) == -sgn(compare(b, a))`
 	/// - `compare(a, b) > 0 && compare(b, c) > 0` implies `compare(a, c) > 0`
@@ -118,6 +129,7 @@ public class NaturalSortOrderTest {
 	@Test
 	public void testContractExhaustive() {
 		var strings = allStrings("aB012- ", 3);
+		strings.add(null);
 		int n = strings.size();
 		var sgn = new int[n][n];
 		for (int i = 0; i < n; i++) {

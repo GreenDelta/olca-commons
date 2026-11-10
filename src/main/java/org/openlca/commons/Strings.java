@@ -92,7 +92,10 @@ public class Strings {
 
 	/// Compares the given strings in natural sort order. A natural sort ordering
 	/// is a lexical ordering where embedded numerals (digit sequences) are
-	/// treated as a single unit and ordered by numerical value.
+	/// treated as a single unit and ordered by numerical value. Letters are
+	/// compared case insensitively. `null` comes before all other strings,
+	/// followed by blank strings (empty or only whitespace), which are equal to
+	/// each other.
 	///
 	/// See also [natural sort order on Wikipedia](https://en.wikipedia.org/wiki/Natural_sort_order)
 	public static int compareNatural(String a, String b) {
