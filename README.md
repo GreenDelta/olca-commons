@@ -11,7 +11,7 @@ Add this dependency to your Maven project:
 <dependency>
     <groupId>org.openlca</groupId>
     <artifactId>olca-commons</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
